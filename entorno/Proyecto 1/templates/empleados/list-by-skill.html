@@ -1,0 +1,12 @@
+<h1>Lista por habilidad</h1>
+
+    <h2>{{empleado.first_name}} {{empleado.last_name}}</h2>
+    <ul>
+        
+        {% for habilidad in empleado.habilidades.all %}
+            <li>{{habilidad}}</li>
+        {% endfor %}
+            
+    </ul>
+        
+</ul>

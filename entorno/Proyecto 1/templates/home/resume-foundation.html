@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foundation UI</title>
+    <link rel="stylesheet" href="{% static 'css/foundation.min.css' %}">
+</head>
+<body>
+    <h1 class="title">Resume Foundation</h1>
+    <div class="grid-x" style="border: solid 1px green;">
+        <h1 class="cell small-12 large-3">Elemento 1</h1>
+        <h1 class="cell large-3">Elemento 2</h1>
+        <h1 class="cell large-3">Elemento 3</h1>
+        <div class="cell grid-x" style="border: 1px solid blue;">
+            <h1 class="cell large-5">Subelemento 1</h1>
+            <h1 class="cell large-4">Subelemento 2</h1>
+            <h1 class="cell large-3">Subelemento 3</h1>
+        </div>
+    </div>
+</body>
+</html>

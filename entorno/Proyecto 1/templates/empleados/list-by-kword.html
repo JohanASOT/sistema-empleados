@@ -1,0 +1,17 @@
+<h1>Listar por palabra clave</h1>
+
+<form action="" method="get">
+    {% csrf_token %}
+    <input type="text" name="kword" id="kword">
+    <button type="submit">Buscar</button>
+</form>
+
+<h3>Listar resultados</h3>
+
+<ul>
+    
+    {% for elemento in empleados %}
+        <li>{{elemento}}</li>
+    {% endfor %}
+        
+</ul>

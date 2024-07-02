@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{empleado.first_name}} {{empleado.last_name}}{% endblock title %}
+
+{% block content %}
+    {% include 'includes/header.html' %}
+
+    <div class="grid-container">
+        <div class="grid-x" style="margin: 20px">
+            <div class="card" style="width: 300px;">
+                <div class="card-divider">
+                  <h4>{{empleado.get_job_display}}</h4>
+                </div>
+                <div class="grid-x align-center">
+                    
+                    {% if empleado.avatar and empleado.avatar.url%}
+                        <p>empleado.avatar: {{ empleado.avatar }}</p>
+                        <p>empleado.avatar.url: {{ empleado.avatar.url }}</p>
+                        <img width="200" src="{{ empleado.avatar.url }}">
+                    {% else %}
+                        <img width="200" src="{% static 'img/profile-icon.png' %}">
+                    {% endif %}
+                        
+                </div>
+                <div class="card-section">
+                  <div class="grid-x" style="text-align: center">
+                    <div class="cell">
+                        <h1>{{empleado.first_name}} {{empleado.last_name}}</h1>
+                    </div>
+                    <div class="cell large-6">
+                        <p><strong>Trabajo:</strong> {{empleado.get_job_display}}</p>
+                    </div>
+                    <div class="cell large-6">
+                        <p><strong>Departamento:</strong> {{empleado.departamento.shor_name}}</p>
+                    </div>
+                    <div class="cell large-6">
+                        <p><span class="label">Habilidades:</span></p>
+                        <ul class="vertical-align">
+                            
+                            {% for h in empleado.habilidades.all %}
+                                <li>{{h.habilidad}}</li>
+                            {% endfor %}
+                                
+                        </ul>
+                    </div>
+                    <div class="cell">
+                        <p><strong>Hoja de Vida:</strong> {{empleado.hoja_vida|safe}}</p>
+                    </div>
+                </div>
+                </div>
+              </div>
+        </div>
+    </div>
+{% endblock content %}
+    

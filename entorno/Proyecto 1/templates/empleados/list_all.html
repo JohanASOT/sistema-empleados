@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% include 'includes/header.html' %}
+
+<div class="grid-container">
+    <br>
+    <h1>Lista de Empleados</h1>
+    <div class="grid-x">
+        <form class="cell grid-x grid-margin-x" method="GET">
+            {% csrf_token %}
+            <div class="cell large-7">
+                <input type="text" name="kword" id="kword" placeholder="Buscar empleado">
+            </div>
+            <div class="cell large-1">
+                <button type="submit" class="submit primary button">Buscar</button>
+            </div>
+        </form>
+        <div class="cell">
+            <table>
+                <thead>
+                  <tr>
+                    <th width="100">ID</th>
+                    <th width="150">Nombre</th>
+                    <th width="150">Apellidos</th>
+                    <th width="300">Departamento</th>
+                    <th width="150">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                 {% for elemento in page_obj %}
+                  <tr>
+                      <td>{{elemento.id}}</td>
+                      <td>{{elemento.first_name}}</td>
+                      <td>{{elemento.last_name}}</td>
+                      <td>{{elemento.departamento.shor_name}}</td>
+                      <td><a href="{% url "empleados_app:empleado-detail" elemento.id %}" class="submit warning button">Ver</a></td>
+                  </tr>
+                 {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+
+        
+        {% if is_paginated %} 
+        <div class="cell">
+            <nav aria-label="Pagination">
+                <ul class="pagination">
+                
+                {% if page_obj.has_previous %}
+                <li class="pagination-previous">
+                    <a href="?page={{ page_obj.previous_page_number }}">Atras</a>
+                </li>                    
+                {% endif %}   
+                
+                {% for pagina in paginator.page_range %}
+                
+                {% if pagina == page_obj.number %} 
+                   <li class="current"><span class="show-for-sr">You're on page</span> {{pagina}}</li>
+                {% else %}
+                   <li><a href="?page={{pagina}}">{{pagina}}</a></li>
+                {% endif %}
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                <li class="pagination-next">
+                    <a href="?page={{page_obj.next_page_number}}">Siguiente</a>
+                </li>
+                {% endif %}
+                    
+                </ul>
+            </nav>
+        </div>
+        {% endif %}
+            
+
+    </div>
+
+    
+</div>
+{% endblock content %}
+<!--
+    <ul>
+        {% for elemento in lista %}
+        <li>{{elemento}}</li>
+        {% endfor %}
+        
+    </ul>
+
+    <div class="pagination">
+        <span class="step-links">
+            
+            {% if page_obj.has_previous %}
+            <a href="?page=1">Primera Página</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+        {% endif %}
+        
+        <span class="current">
+            Página {{page_obj.number}} de {{page_obj.paginator.num_pages}}
+        </span>
+        
+        
+        {% if page_obj.has_next %}
+        <a href="?page={{page_obj.next_page_number}}">Siguiente</a>
+        <a href="?page={{page_obj.paginator.num_pages}}">Ultima Página</a>
+        {% endif %}
+    </span>
+</div>
+
+<div>
+    <p>Página actual: {{ page_obj.number }}</p>
+    <p>Total de páginas: {{ page_obj.paginator.num_pages }}</p>
+    <p>¿Tiene página anterior?: {{ page_obj.has_previous }}</p>
+    <p>¿Tiene página siguiente?: {{ page_obj.has_next }}</p>
+    
+</div>
+<!-- Etiquetas de depuración -->
+<!--
+    <div>
+        <h2>Depuración del Contexto</h2>
+        <pre>{{ debug_lista }}</pre>
+        <pre>{{ lista }}</pre>
+        <pre>{{ page_obj }}</pre>
+        <pre>{{ paginator }}</pre>
+    </div>
+    
+-->
